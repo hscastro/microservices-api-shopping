@@ -1,6 +1,7 @@
 package com.ms.hscastro.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,9 +23,12 @@ public class UserService {
 		return newUserDTO;
 	}
 
-	public List<User> listAllUser() {
+	public List<UserDTO> listAllUser() {
 		List<User> lista = userRepository.findAll(); 
-		return lista;
+		
+		return lista
+				.stream().map(UserDTO::convertToUser)
+				.collect(Collectors.toList());
 	}
 	
 	public UserDTO findById(Long id) {

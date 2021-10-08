@@ -29,8 +29,8 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public @ResponseBody ResponseEntity<List<User>> listAllUsers() {
-		List<User> lista = userService.listAllUser();
+	public @ResponseBody ResponseEntity<List<UserDTO>> listAllUsers() {
+		List<UserDTO> lista = userService.listAllUser();
 		return ResponseEntity.ok(lista);
 	}
 	
