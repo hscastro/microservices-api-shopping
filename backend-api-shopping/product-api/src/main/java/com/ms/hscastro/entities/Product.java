@@ -96,7 +96,7 @@ public class Product {
 		this.category = category;
 	}
 
-	public static Product convert(ProductDTO productDTO) {
+	public static Product convertToProduct(ProductDTO productDTO) {
 		Product product = new Product();
 		product.setId(productDTO.getId());
 		product.setNome(productDTO.getNome());

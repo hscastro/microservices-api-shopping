@@ -65,7 +65,7 @@ public class ProductDTO {
 		this.categoryDTO = categoryDTO;
 	}
 
-	public static ProductDTO convert(Product product) {
+	public static ProductDTO convertToDTO(Product product) {
 		ProductDTO productDTO = new ProductDTO();
 		productDTO.setId(product.getId());
 		productDTO.setNome(product.getNome());
