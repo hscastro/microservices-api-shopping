@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ms.hscastro.dto.UserDTO;
 import com.ms.hscastro.entities.User;
 import com.ms.hscastro.service.UserService;
 
@@ -22,8 +23,8 @@ public class UserController {
 	
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public @ResponseBody ResponseEntity<User> createUser(@RequestBody User user) {
-		User newUser = userService.saveUser(user);
+	public @ResponseBody ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
+		UserDTO newUser = userService.saveUser(userDTO);
 		return ResponseEntity.ok(newUser);
 	}
 

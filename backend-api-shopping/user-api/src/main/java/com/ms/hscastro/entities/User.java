@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.ms.hscastro.dto.UserDTO;
+
 
 @Entity
 public class User {
@@ -18,18 +20,26 @@ public class User {
 	
 	@Column
 	private String nome;
+	
 	@Column
 	private String cpf;
+	
 	@Column
 	private String endereco;
+	
 	@Column
 	private String email;
+	
 	@Column
 	private String telefone;
+	
 	@Column
 	private Date dataCadastro;
 	
-	
+	public User() {
+		// TODO Auto-generated constructor stub
+	}
+		
 	public User(Long id, String nome, String cpf, String endereco, String email, String telefone, Date dataCadastro) {
 		super();
 		this.id = id;
@@ -109,6 +119,18 @@ public class User {
 
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
+	}
+	
+	public static User convertToDTO(UserDTO userDto) {
+		User user = new User();
+		user.setId(userDto.getId());
+		user.setNome(userDto.getNome());
+		user.setCpf(userDto.getCpf());
+		user.setEndereco(userDto.getEndereco());
+		user.setEmail(userDto.getEmail());		
+		user.setTelefone(userDto.getTelefone());
+		user.setDataCadastro(userDto.getDataCadastro());
+		return user;
 	}
 
 

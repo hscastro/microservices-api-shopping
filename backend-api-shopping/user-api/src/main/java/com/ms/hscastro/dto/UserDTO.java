@@ -2,6 +2,8 @@ package com.ms.hscastro.dto;
 
 import java.util.Date;
 
+import com.ms.hscastro.entities.User;
+
 
 public class UserDTO {
 
@@ -72,5 +74,18 @@ public class UserDTO {
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
+	
+	public static UserDTO convertToUser(User user) {
+		UserDTO userDTO = new UserDTO();
+		userDTO.setId(user.getId());
+		userDTO.setNome(user.getNome());
+		userDTO.setCpf(user.getCpf());
+		userDTO.setEndereco(user.getEndereco());
+		userDTO.setEmail(user.getEmail());		
+		userDTO.setTelefone(user.getTelefone());
+		userDTO.setDataCadastro(user.getDataCadastro());
+		return userDTO;
+	}
+
 	
 }
