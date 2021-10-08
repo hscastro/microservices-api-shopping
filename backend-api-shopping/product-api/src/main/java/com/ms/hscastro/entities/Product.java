@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import com.ms.hscastro.dto.ProductDTO;
 
@@ -28,6 +30,10 @@ public class Product {
 	
 	@Column
 	private String identifier;
+	
+	@ManyToOne
+	@JoinColumn(name = "category_id")
+	private Category category;
 	
 	public Product() {
 		// TODO Auto-generated constructor stub
@@ -81,15 +87,26 @@ public class Product {
 	public void setIdentifier(String identifier) {
 		this.identifier = identifier;
 	}
+		
+	public Category getCategory() {
+		return category;
+	}
 
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 
-	public static Product convertToDTO(ProductDTO productDto) {
+	public static Product convert(ProductDTO productDTO) {
 		Product product = new Product();
-		product.setId(productDto.getId());
-		product.setNome(productDto.getNome());
-		product.setPreco(productDto.getPreco() );
-		product.setDescricao(productDto.getDescricao());
-		product.setIdentifier(productDto.getIdentifier());
+		product.setId(productDTO.getId());
+		product.setNome(productDTO.getNome());
+		product.setPreco(productDTO.getPreco() );
+		product.setDescricao(productDTO.getDescricao());
+		product.setIdentifier(productDTO.getIdentifier());
+		
+		if(productDTO.getCategoryDTO() != null) {
+			product.setCategory(Category.convert(productDTO.getCategoryDTO()));
+		}
 		return product;
 	}
 

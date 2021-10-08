@@ -1,6 +1,7 @@
 package com.ms.hscastro.dto;
 
 
+import com.ms.hscastro.entities.Category;
 import com.ms.hscastro.entities.Product;
 
 
@@ -11,6 +12,7 @@ public class ProductDTO {
 	private float preco;
 	private String descricao;
 	private String identifier;
+	private CategoryDTO categoryDTO;
 	
 	public ProductDTO() {
 		// TODO Auto-generated constructor stub
@@ -55,14 +57,26 @@ public class ProductDTO {
 	public void setIdentifier(String identifier) {
 		this.identifier = identifier;
 	}
+	
+	public CategoryDTO getCategoryDTO() {
+		return categoryDTO;
+	}
 
-	public static ProductDTO convertToUser(Product product) {
+	public void setCategoryDTO(CategoryDTO categoryDTO) {
+		this.categoryDTO = categoryDTO;
+	}
+
+	public static ProductDTO convert(Product product) {
 		ProductDTO productDTO = new ProductDTO();
 		productDTO.setId(product.getId());
 		productDTO.setNome(product.getNome());
 		productDTO.setPreco(product.getPreco());
 		productDTO.setDescricao(product.getDescricao());
 		productDTO.setIdentifier(product.getIdentifier());
+		
+		if(product.getCategory() != null) {
+			productDTO.setCategoryDTO(CategoryDTO.convert(product.getCategory()));			
+		}
 		return productDTO;
 	}
 	

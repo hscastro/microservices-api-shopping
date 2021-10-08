@@ -20,8 +20,8 @@ public class ProductService {
 	
 	
 	public ProductDTO saveProduct(ProductDTO productDTO) {
-		ProductDTO newProductDTO = ProductDTO.convertToUser(
-				productRepository.save(Product.convertToDTO(productDTO)));
+		ProductDTO newProductDTO = ProductDTO.convert(
+				productRepository.save(Product.convert(productDTO)));
 		return newProductDTO;
 	}
 
@@ -30,7 +30,7 @@ public class ProductService {
 		List<Product> lista = productRepository.findAll(); 
 		
 		return lista
-				.stream().map(ProductDTO::convertToUser)
+				.stream().map(ProductDTO::convert)
 				.collect(Collectors.toList());
 	}
 	
@@ -38,7 +38,7 @@ public class ProductService {
 	public ProductDTO findProductById(Long id) {
 		Optional<Product> product = productRepository.findById(id);
 		if(product.isPresent()) {
-			return ProductDTO.convertToUser(product.get());
+			return ProductDTO.convert(product.get());
 		}		
 		return null;
 	}
@@ -47,7 +47,7 @@ public class ProductService {
 	public ProductDTO findProductByIdentifier(String identifier) {
 		Optional<Product> product = productRepository.findByIdentifier(identifier);
 		if(product.isPresent()) {
-			return ProductDTO.convertToUser(product.get());
+			return ProductDTO.convert(product.get());
 		}		
 		return null;		
 	}
