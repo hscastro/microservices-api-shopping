@@ -1,7 +1,6 @@
 package com.ms.hscastro.dto;
 
 
-import com.ms.hscastro.entities.Category;
 import com.ms.hscastro.entities.Product;
 
 

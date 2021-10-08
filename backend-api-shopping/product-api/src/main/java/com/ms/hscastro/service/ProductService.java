@@ -35,6 +35,15 @@ public class ProductService {
 	}
 	
 	@Transactional(readOnly = true)
+	public List<ProductDTO> listProductByCategoryId(Long categoryId) {
+		List<Product> lista = productRepository.getProductByCategoryId(categoryId);
+		
+		return lista
+				.stream().map(ProductDTO::convert)
+				.collect(Collectors.toList());
+	}
+	
+	@Transactional(readOnly = true)
 	public ProductDTO findProductById(Long id) {
 		Optional<Product> product = productRepository.findById(id);
 		if(product.isPresent()) {
