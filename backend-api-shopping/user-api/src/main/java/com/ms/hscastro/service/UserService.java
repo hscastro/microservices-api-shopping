@@ -1,16 +1,18 @@
 package com.ms.hscastro.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ms.hscastro.dto.UserDTO;
 import com.ms.hscastro.entities.User;
 import com.ms.hscastro.repositories.UserRepository;
 
-@Service
+@Service @Transactional(readOnly = false)
 public class UserService {
 
 	@Autowired
@@ -23,6 +25,7 @@ public class UserService {
 		return newUserDTO;
 	}
 
+	@Transactional(readOnly = true)
 	public List<UserDTO> listAllUser() {
 		List<User> lista = userRepository.findAll(); 
 		
@@ -31,14 +34,22 @@ public class UserService {
 				.collect(Collectors.toList());
 	}
 	
-	public UserDTO findById(Long id) {
-		User user = userRepository.findById(id).get();
-		return UserDTO.convertToUser(user);		
+	@Transactional(readOnly = true)
+	public UserDTO findUserById(Long id) {
+		Optional<User> user = userRepository.findById(id);
+		if(user.isPresent()) {
+			return UserDTO.convertToUser(user.get());
+		}		
+		return null;
 	}
 	
-	public UserDTO findByCpf(String cpf) {
-		User user = userRepository.findByCpf(cpf);
-		return UserDTO.convertToUser(user);			
+	@Transactional(readOnly = true)
+	public UserDTO findUserByCpf(String cpf) {
+		Optional<User> user = userRepository.findByCpf(cpf);
+		if(user.isPresent()) {
+			return UserDTO.convertToUser(user.get());
+		}		
+		return null;		
 	}
 
 }
