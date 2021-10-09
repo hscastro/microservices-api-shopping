@@ -60,5 +60,13 @@ public class ProductService {
 		}		
 		return null;		
 	}
+	
+	public void deleteProduct(Long idProduct) {
+		Optional<Product> product = productRepository.findById(idProduct);
+		
+		if(product.isPresent()) {
+			productRepository.delete(product.get());
+		}		
+	}
 
 }
