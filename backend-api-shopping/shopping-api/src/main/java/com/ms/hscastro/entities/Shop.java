@@ -2,12 +2,16 @@ package com.ms.hscastro.entities;
 
 
 import java.util.Date;
+import java.util.List;
 
-import javax.persistence.Column;
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 
 import com.ms.hscastro.dto.ShopDTO;
 
@@ -19,13 +23,16 @@ public class Shop {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column
 	private float total;
 		
-	@Column
 	private String userIdentifier;
 	
 	private Date data;
+	
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "item",
+			joinColumns = @JoinColumn(name = "shop_id"))
+	private List<Item> items;
 	
 	public Shop() {
 		// TODO Auto-generated constructor stub
@@ -37,6 +44,15 @@ public class Shop {
 		this.total = total;
 		this.userIdentifier = userIdentifier;
 		this.data = data;
+	}
+	
+	public Shop(Long id, float total, String userIdentifier, Date data, List<Item> items) {
+		super();
+		this.id = id;
+		this.total = total;
+		this.userIdentifier = userIdentifier;
+		this.data = data;
+		this.items = items;
 	}
 
 	public Long getId() {
@@ -70,13 +86,26 @@ public class Shop {
 	public void setData(Date data) {
 		this.data = data;
 	}
+	
+	public List<Item> getItems() {
+		return items;
+	}
+
+	public void setItems(List<Item> items) {
+		this.items = items;
+	}
 
 	public static Shop convertToShop(ShopDTO shopDTO) {
 		Shop shop = new Shop();
 		shop.setId(shopDTO.getId());
 		shop.setUserIdentifier(shopDTO.getUserIdentifier());
 		shop.setTotal(shopDTO.getTotal());
-		shop.setData(shopDTO.getData());
+		shop.setData(shopDTO.getData());	
+//		shop.setItems(shopDTO
+//				.getItems()
+//				.stream()
+//				.map(Item::convertToItem)
+//				.collect(Collectors.toList()));
 		return shop;
 	}
 

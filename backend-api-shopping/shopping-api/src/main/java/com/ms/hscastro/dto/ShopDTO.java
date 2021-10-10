@@ -2,7 +2,9 @@ package com.ms.hscastro.dto;
 
 
 import java.util.Date;
+import java.util.List;
 
+import com.ms.hscastro.entities.Item;
 import com.ms.hscastro.entities.Shop;
 
 
@@ -12,6 +14,7 @@ public class ShopDTO {
 	private float total;
 	private String userIdentifier;	
 	private Date data;
+	private List<Item> items;
 	
 	public ShopDTO() {
 		// TODO Auto-generated constructor stub
@@ -49,12 +52,20 @@ public class ShopDTO {
 		this.data = data;
 	}
 
+	public List<Item> getItems() {
+		return items;
+	}
+
+	public void setItems(List<Item> items) {
+		this.items = items;
+	}
+
 	public static ShopDTO convertToDTO(Shop shop) {
 		ShopDTO shopDTO = new ShopDTO();
 		shopDTO.setId(shop.getId());
 		shopDTO.setUserIdentifier(shop.getUserIdentifier());
 		shopDTO.setTotal(shop.getTotal());
-		shopDTO.setData(shop.getData());
+		shopDTO.setData(shop.getData());	
 		return shopDTO;
 	}
 	
