@@ -75,7 +75,7 @@ public class UserDTO {
 		this.dataCadastro = dataCadastro;
 	}
 	
-	public static UserDTO convertToUser(User user) {
+	public static UserDTO convertToDTO(User user) {
 		UserDTO userDTO = new UserDTO();
 		userDTO.setId(user.getId());
 		userDTO.setNome(user.getNome());

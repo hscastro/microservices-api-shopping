@@ -20,7 +20,7 @@ public class UserService {
 	
 	
 	public UserDTO saveUser(UserDTO userDTO) {
-		UserDTO newUserDTO = UserDTO.convertToUser(
+		UserDTO newUserDTO = UserDTO.convertToDTO(
 				userRepository.save(User.convertToDTO(userDTO)));
 		return newUserDTO;
 	}
@@ -30,7 +30,7 @@ public class UserService {
 		List<User> lista = userRepository.findAll(); 
 		
 		return lista
-				.stream().map(UserDTO::convertToUser)
+				.stream().map(UserDTO::convertToDTO)
 				.collect(Collectors.toList());
 	}
 	
@@ -38,7 +38,7 @@ public class UserService {
 	public UserDTO findUserById(Long id) {
 		Optional<User> user = userRepository.findById(id);
 		if(user.isPresent()) {
-			return UserDTO.convertToUser(user.get());
+			return UserDTO.convertToDTO(user.get());
 		}		
 		return null;
 	}
@@ -47,7 +47,7 @@ public class UserService {
 	public UserDTO findUserByCpf(String cpf) {
 		Optional<User> user = userRepository.findByCpf(cpf);
 		if(user.isPresent()) {
-			return UserDTO.convertToUser(user.get());
+			return UserDTO.convertToDTO(user.get());
 		}		
 		return null;		
 	}
@@ -56,7 +56,7 @@ public class UserService {
 		Optional<User> user = userRepository.findById(id);
 		if(user.isPresent()) {
 			userRepository.delete(user.get());
-			return UserDTO.convertToUser(user.get());
+			return UserDTO.convertToDTO(user.get());
 		}		
 		return null;
 	}

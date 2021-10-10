@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,5 +44,11 @@ public class ProductController {
 	public @ResponseBody ResponseEntity<ProductDTO> getProductByIdentifier(@PathVariable("identifier") String identifier) {
 		ProductDTO product = productService.findProductByIdentifier(identifier);
 		return ResponseEntity.ok(product);
+	}
+	
+	@DeleteMapping("/{productId}")
+	public @ResponseBody ResponseEntity<ProductDTO> deleteUserByCpf(@PathVariable("productId") Long productId) {
+		ProductDTO Product = productService.deleteProductById(productId);
+		return ResponseEntity.ok(Product);
 	}
 }
