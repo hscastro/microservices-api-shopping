@@ -66,7 +66,7 @@ public class ProductService {
 		
 		if(product.isPresent()) {
 			productRepository.delete(product.get());
-		}		
+		}
 	}
 
 }
