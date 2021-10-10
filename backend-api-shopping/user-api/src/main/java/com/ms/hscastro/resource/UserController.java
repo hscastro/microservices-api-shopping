@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,6 +45,12 @@ public class UserController {
 	@GetMapping("/cpf/{cpf}")
 	public @ResponseBody ResponseEntity<UserDTO> getUserByCpf(@PathVariable("cpf") String cpf) {
 		UserDTO user = userService.findUserByCpf(cpf);
+		return ResponseEntity.ok(user);
+	}
+	
+	@DeleteMapping("/{userId}")
+	public @ResponseBody ResponseEntity<UserDTO> deleteUserByCpf(@PathVariable("userId") Long userId) {
+		UserDTO user = userService.deleteUserById(userId);
 		return ResponseEntity.ok(user);
 	}
 }

@@ -51,5 +51,14 @@ public class UserService {
 		}		
 		return null;		
 	}
+		
+	public UserDTO deleteUserById(Long id) {
+		Optional<User> user = userRepository.findById(id);
+		if(user.isPresent()) {
+			userRepository.delete(user.get());
+			return UserDTO.convertToUser(user.get());
+		}		
+		return null;
+	}
 
 }
