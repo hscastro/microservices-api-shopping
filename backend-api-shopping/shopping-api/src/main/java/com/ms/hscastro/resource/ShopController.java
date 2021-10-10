@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,33 +21,27 @@ public class ShopController {
 	private ShopService shopService;
 	
 	
-	@PostMapping("/shops")
-	public @ResponseBody ResponseEntity<ShopDTO> createUser(@RequestBody ShopDTO shopDTO) {
-		ShopDTO newShop = shopService.saveShop(shopDTO);
-		return ResponseEntity.ok(newShop);
-	}
-
-	@GetMapping("/shops")
-	public @ResponseBody ResponseEntity<List<ShopDTO>> listAllProducts() {
+	@GetMapping("/shopping")
+	public @ResponseBody ResponseEntity<List<ShopDTO>> getShops() {
 		List<ShopDTO> lista = shopService.listAllShops();
 		return ResponseEntity.ok(lista);
 	}
 	
-	@GetMapping("/shops/{id}")
+	@GetMapping("/shopping/{id}")
 	public @ResponseBody ResponseEntity<ShopDTO> getShopById(@PathVariable("id") Long id) {
-		ShopDTO shop = shopService.findShopById(id);
+		ShopDTO shop = shopService.findById(id);
 		return ResponseEntity.ok(shop);
 	}
 
-	@GetMapping("/shops/{identifier}")
-	public @ResponseBody ResponseEntity<ShopDTO> getShopByIdentifier(@PathVariable("identifier") String identifier) {
-		ShopDTO shop = shopService.findShopByIdentifier(identifier);
-		return ResponseEntity.ok(shop);
+	@GetMapping("/shopping/shopByUser/{identifier}")
+	public @ResponseBody ResponseEntity<List<ShopDTO>> getShopsByUsers(@PathVariable("identifier") String identifier) {
+		List<ShopDTO> shops = shopService.listShopByUser(identifier);
+		return ResponseEntity.ok(shops);
 	}
 	
-	@DeleteMapping("/{shopId}")
-	public @ResponseBody ResponseEntity<ShopDTO> deleteShopById(@PathVariable("shopId") Long shopId) {
-		ShopDTO shop = shopService.deleteShopById(shopId);
-		return ResponseEntity.ok(shop);
+	@PostMapping("/shopping")
+	public @ResponseBody ResponseEntity<ShopDTO> createShop(@RequestBody ShopDTO shopDTO) {
+		ShopDTO newShop = shopService.saveShop(shopDTO);
+		return ResponseEntity.ok(newShop);
 	}
 }

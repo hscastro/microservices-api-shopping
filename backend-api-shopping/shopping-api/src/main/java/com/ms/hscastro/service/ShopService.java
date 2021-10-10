@@ -1,5 +1,6 @@
 package com.ms.hscastro.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -12,17 +13,24 @@ import com.ms.hscastro.dto.ShopDTO;
 import com.ms.hscastro.entities.Shop;
 import com.ms.hscastro.repositories.ShopRepository;
 
-@Service @Transactional(readOnly = false)
+@Service 
 public class ShopService {
 
 	@Autowired
 	private ShopRepository shopRepository;
 	
 	
-	public ShopDTO saveShop(ShopDTO productDTO) {
-		ShopDTO newProductDTO = ShopDTO.convertToDTO(
-				shopRepository.save(Shop.convertToShop(productDTO)));
-		return newProductDTO;
+	public ShopDTO saveShop(ShopDTO shopDTO) {
+		shopDTO.setTotal(shopDTO.getItems()
+				.stream()
+				.map(x -> x.getPrice())
+				.reduce((float) 0, Float::sum));
+		
+		Shop shop = Shop.convertToShop(shopDTO);
+		shop.setData(new Date());
+		
+		shop = shopRepository.save(shop);		
+		return ShopDTO.convertToDTO(shop);
 	}
 
 	@Transactional(readOnly = true)
@@ -35,40 +43,31 @@ public class ShopService {
 	}
 	
 	@Transactional(readOnly = true)
-	public List<ShopDTO> listShopByCategoryId(Long categoryId) {
-		List<Shop> lista = shopRepository.getShopByCategoryId(categoryId);
+	public List<ShopDTO> listShopByUser(String userIdentifier) {
+		List<Shop> shops = shopRepository.findAllByUsersIdentifier(userIdentifier);
 		
-		return lista
+		return shops
 				.stream().map(ShopDTO::convertToDTO)
 				.collect(Collectors.toList());
 	}
 	
 	@Transactional(readOnly = true)
-	public ShopDTO findShopById(Long id) {
-		Optional<Shop> shop = shopRepository.findById(id);
-		if(shop.isPresent()) {
-			return ShopDTO.convertToDTO(shop.get());
-		}		
-		return null;
+	public List<ShopDTO> findShopByDate(ShopDTO shopDTO) {
+		List<Shop> shops = shopRepository.findAllBydateGreaterThan(shopDTO.getData());
+		
+		return shops
+				.stream().map(ShopDTO::convertToDTO)
+				.collect(Collectors.toList());
 	}
 	
 	@Transactional(readOnly = true)
-	public ShopDTO findShopByIdentifier(String identifier) {
-		Optional<Shop> shop = shopRepository.findByIdentifier(identifier);
-		if(shop.isPresent()) {
-			return ShopDTO.convertToDTO(shop.get());
-		}		
-		return null;		
-	}
-	
-		
-	public ShopDTO deleteShopById(Long id) {
+	public ShopDTO findById(Long id) {
 		Optional<Shop> product = shopRepository.findById(id);
+		
 		if(product.isPresent()) {
-			shopRepository.delete(product.get());
 			return ShopDTO.convertToDTO(product.get());
 		}		
 		return null;
 	}
-
+	
 }
