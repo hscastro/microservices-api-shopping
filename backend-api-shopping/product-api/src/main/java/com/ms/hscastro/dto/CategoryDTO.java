@@ -1,12 +1,17 @@
 package com.ms.hscastro.dto;
 
 
+import javax.validation.constraints.NotBlank;
+
 import com.ms.hscastro.entities.Category;
 
 
 public class CategoryDTO {
 
+	@NotBlank
 	private Long id;
+	
+	@NotBlank
 	private String nome;
 	
 	public CategoryDTO() {

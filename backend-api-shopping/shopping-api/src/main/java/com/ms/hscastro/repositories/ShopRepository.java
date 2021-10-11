@@ -12,9 +12,9 @@ import com.ms.hscastro.entities.Shop;
 @Repository
 public interface ShopRepository extends JpaRepository<Shop, Long> {
 	
-	List<Shop> findAllByUsersIdentifier(String userIdentified);
+	public List<Shop> findAllByUserIdentifier(String userIdentified);
 	
-	List<Shop> findAllByTotalGreaterThan(float total);
+	public List<Shop> findAllByTotalGreaterThan(Float total);
 	
-	List<Shop> findAllBydateGreaterThan(Date date);
+	public List<Shop> findAllByDateGreaterThan(Date date);
 }

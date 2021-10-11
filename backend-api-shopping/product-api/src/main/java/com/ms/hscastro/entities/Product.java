@@ -12,24 +12,24 @@ import javax.persistence.ManyToOne;
 import com.ms.hscastro.dto.ProductDTO;
 
 
-@Entity
+@Entity(name = "product")
 public class Product {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column
+	@Column(name = "nome")
 	private String nome;
 	
-	@Column
-	private float preco;
+	@Column(name = "preco")
+	private Float preco;
 	
-	@Column
+	@Column(name = "descricao")
 	private String descricao;
 	
-	@Column
-	private String identifier;
+	@Column(name = "productIdentifier")
+	private String productIdentifier;
 	
 	@ManyToOne
 	@JoinColumn(name = "category_id")
@@ -39,14 +39,17 @@ public class Product {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Product(Long id, String nome, float preco, String descricao, String identifier) {
+    public Product(Long id, String nome, Float preco, String descricao, String productIdentifier, Category category) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.preco = preco;
 		this.descricao = descricao;
-		this.identifier = identifier;
+		this.productIdentifier = productIdentifier;
+		this.category = category;
 	}
+
+
 
 	public Long getId() {
 		return id;
@@ -64,11 +67,11 @@ public class Product {
 		this.nome = nome;
 	}
 
-	public float getPreco() {
+	public Float getPreco() {
 		return preco;
 	}
 
-	public void setPreco(float preco) {
+	public void setPreco(Float preco) {
 		this.preco = preco;
 	}
 
@@ -79,15 +82,15 @@ public class Product {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-
-	public String getIdentifier() {
-		return identifier;
-	}
-	
-	public void setIdentifier(String identifier) {
-		this.identifier = identifier;
-	}
 		
+	public String getProductIdentifier() {
+		return productIdentifier;
+	}
+
+	public void setProductIdentifier(String productIdentifier) {
+		this.productIdentifier = productIdentifier;
+	}
+
 	public Category getCategory() {
 		return category;
 	}
@@ -102,7 +105,7 @@ public class Product {
 		product.setNome(productDTO.getNome());
 		product.setPreco(productDTO.getPreco() );
 		product.setDescricao(productDTO.getDescricao());
-		product.setIdentifier(productDTO.getIdentifier());
+		product.setProductIdentifier(productDTO.getIdentifier());
 		
 		if(productDTO.getCategoryDTO() != null) {
 			product.setCategory(Category.convert(productDTO.getCategoryDTO()));
@@ -114,8 +117,8 @@ public class Product {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((productIdentifier == null) ? 0 : productIdentifier.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((identifier == null) ? 0 : identifier.hashCode());
 		return result;
 	}
 
@@ -128,17 +131,17 @@ public class Product {
 		if (getClass() != obj.getClass())
 			return false;
 		Product other = (Product) obj;
+		if (productIdentifier == null) {
+			if (other.productIdentifier != null)
+				return false;
+		} else if (!productIdentifier.equals(other.productIdentifier))
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (identifier == null) {
-			if (other.identifier != null)
-				return false;
-		} else if (!identifier.equals(other.identifier))
-			return false;
 		return true;
 	}
-			
+				
 }

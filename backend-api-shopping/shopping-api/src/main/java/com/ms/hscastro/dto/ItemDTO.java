@@ -1,13 +1,17 @@
 package com.ms.hscastro.dto;
 
 
+import javax.validation.constraints.NotBlank;
+
 import com.ms.hscastro.entities.Item;
 
 
 public class ItemDTO {
 
+	@NotBlank
 	private String productIdentifier;	
 	
+	@NotBlank
 	private float price;
 	
 	public ItemDTO() {

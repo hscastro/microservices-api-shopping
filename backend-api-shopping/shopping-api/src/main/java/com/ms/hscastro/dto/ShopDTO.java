@@ -4,16 +4,26 @@ package com.ms.hscastro.dto;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
 import com.ms.hscastro.entities.Item;
 import com.ms.hscastro.entities.Shop;
 
 
 public class ShopDTO {
 
+	@NotBlank
 	private Long id;
+	
+	@NotBlank
 	private float total;
+	
+	@NotBlank
 	private String userIdentifier;	
+	
+	@NotBlank
 	private Date data;
+	
+	@NotBlank
 	private List<Item> items;
 	
 	public ShopDTO() {
@@ -65,7 +75,7 @@ public class ShopDTO {
 		shopDTO.setId(shop.getId());
 		shopDTO.setUserIdentifier(shop.getUserIdentifier());
 		shopDTO.setTotal(shop.getTotal());
-		shopDTO.setData(shop.getData());	
+		shopDTO.setData(shop.getDate());	
 		return shopDTO;
 	}
 	

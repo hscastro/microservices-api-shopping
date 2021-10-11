@@ -1,16 +1,29 @@
 package com.ms.hscastro.dto;
 
 
+import javax.validation.constraints.NotBlank;
+
 import com.ms.hscastro.entities.Product;
 
 
 public class ProductDTO {
-
+	
+	@NotBlank
 	private Long id;
+	
+	@NotBlank
 	private String nome;
-	private float preco;
+	
+	@NotBlank
+	private Float preco;
+	
+	@NotBlank
 	private String descricao;
+	
+	@NotBlank
 	private String identifier;
+	
+	@NotBlank
 	private CategoryDTO categoryDTO;
 	
 	public ProductDTO() {
@@ -33,11 +46,11 @@ public class ProductDTO {
 		this.nome = nome;
 	}
 	
-	public float getPreco() {
+	public Float getPreco() {
 		return preco;
 	}
 
-	public void setPreco(float preco) {
+	public void setPreco(Float preco) {
 		this.preco = preco;
 	}
 
@@ -71,7 +84,7 @@ public class ProductDTO {
 		productDTO.setNome(product.getNome());
 		productDTO.setPreco(product.getPreco());
 		productDTO.setDescricao(product.getDescricao());
-		productDTO.setIdentifier(product.getIdentifier());
+		productDTO.setIdentifier(product.getProductIdentifier());
 		
 		if(product.getCategory() != null) {
 			productDTO.setCategoryDTO(CategoryDTO.convert(product.getCategory()));			

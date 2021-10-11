@@ -10,14 +10,14 @@ import javax.persistence.Id;
 import com.ms.hscastro.dto.CategoryDTO;
 
 
-@Entity
+@Entity(name = "category")
 public class Category {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column
+	@Column(name = "nome")
 	private String nome;
 	
 		

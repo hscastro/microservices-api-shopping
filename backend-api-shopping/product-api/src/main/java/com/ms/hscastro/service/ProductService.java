@@ -54,9 +54,9 @@ public class ProductService {
 	
 	@Transactional(readOnly = true)
 	public ProductDTO findProductByIdentifier(String identifier) {
-		Optional<Product> product = productRepository.findByIdentifier(identifier);
-		if(product.isPresent()) {
-			return ProductDTO.convertToDTO(product.get());
+		Product product = productRepository.findByProductIdentifier(identifier);
+		if(product != null) {
+			return ProductDTO.convertToDTO(product);
 		}		
 		return null;		
 	}

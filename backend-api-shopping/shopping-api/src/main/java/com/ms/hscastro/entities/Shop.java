@@ -27,7 +27,7 @@ public class Shop {
 		
 	private String userIdentifier;
 	
-	private Date data;
+	private Date date;
 	
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "item",
@@ -38,20 +38,12 @@ public class Shop {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Shop(Long id, float total, String userIdentifier, Date data) {
+	public Shop(Long id, float total, String userIdentifier, Date date, List<Item> items) {
 		super();
 		this.id = id;
 		this.total = total;
 		this.userIdentifier = userIdentifier;
-		this.data = data;
-	}
-	
-	public Shop(Long id, float total, String userIdentifier, Date data, List<Item> items) {
-		super();
-		this.id = id;
-		this.total = total;
-		this.userIdentifier = userIdentifier;
-		this.data = data;
+		this.date = date;
 		this.items = items;
 	}
 
@@ -79,12 +71,12 @@ public class Shop {
 		this.userIdentifier = userIdentifier;
 	}
 
-	public Date getData() {
-		return data;
+	public Date getDate() {
+		return date;
 	}
 
-	public void setData(Date data) {
-		this.data = data;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 	
 	public List<Item> getItems() {
@@ -100,7 +92,7 @@ public class Shop {
 		shop.setId(shopDTO.getId());
 		shop.setUserIdentifier(shopDTO.getUserIdentifier());
 		shop.setTotal(shopDTO.getTotal());
-		shop.setData(shopDTO.getData());	
+		shop.setDate(shopDTO.getData());	
 //		shop.setItems(shopDTO
 //				.getItems()
 //				.stream()

@@ -27,7 +27,7 @@ public class ShopService {
 				.reduce((float) 0, Float::sum));
 		
 		Shop shop = Shop.convertToShop(shopDTO);
-		shop.setData(new Date());
+		shop.setDate(new Date());
 		
 		shop = shopRepository.save(shop);		
 		return ShopDTO.convertToDTO(shop);
@@ -44,7 +44,7 @@ public class ShopService {
 	
 	@Transactional(readOnly = true)
 	public List<ShopDTO> listShopByUser(String userIdentifier) {
-		List<Shop> shops = shopRepository.findAllByUsersIdentifier(userIdentifier);
+		List<Shop> shops = shopRepository.findAllByUserIdentifier(userIdentifier);
 		
 		return shops
 				.stream().map(ShopDTO::convertToDTO)
@@ -53,7 +53,7 @@ public class ShopService {
 	
 	@Transactional(readOnly = true)
 	public List<ShopDTO> findShopByDate(ShopDTO shopDTO) {
-		List<Shop> shops = shopRepository.findAllBydateGreaterThan(shopDTO.getData());
+		List<Shop> shops = shopRepository.findAllByDateGreaterThan(shopDTO.getData());
 		
 		return shops
 				.stream().map(ShopDTO::convertToDTO)
