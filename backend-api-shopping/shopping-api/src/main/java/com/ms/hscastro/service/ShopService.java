@@ -72,7 +72,7 @@ public class ShopService {
 	}
 	
 	@Transactional(readOnly = true)
-	public List<ShopDTO> getShopsByFiltre(Date dataInicio, Date dataFim, Float valorMinimo) {
+	public List<ShopDTO> getShopsByFilters(Date dataInicio, Date dataFim, Float valorMinimo) {
 		List<Shop> shops = shopRepository
 				.getShopByFilters(dataInicio, dataFim, valorMinimo);
 		
