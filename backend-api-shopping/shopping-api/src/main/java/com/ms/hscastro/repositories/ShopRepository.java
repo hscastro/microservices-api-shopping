@@ -10,7 +10,7 @@ import com.ms.hscastro.entities.Shop;
 
 
 @Repository
-public interface ShopRepository extends JpaRepository<Shop, Long> {
+public interface ShopRepository extends JpaRepository<Shop, Long>, ReportRepository{
 	
 	public List<Shop> findAllByUserIdentifier(String userIdentified);
 	

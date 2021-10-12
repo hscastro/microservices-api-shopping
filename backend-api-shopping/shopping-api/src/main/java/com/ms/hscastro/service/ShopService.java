@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ms.hscastro.dto.ShopDTO;
+import com.ms.hscastro.dto.ShopReportDTO;
 import com.ms.hscastro.entities.Shop;
 import com.ms.hscastro.repositories.ShopRepository;
 
@@ -68,6 +69,23 @@ public class ShopService {
 			return ShopDTO.convertToDTO(product.get());
 		}		
 		return null;
+	}
+	
+	@Transactional(readOnly = true)
+	public List<ShopDTO> getShopsByFiltre(Date dataInicio, Date dataFim, Float valorMinimo) {
+		List<Shop> shops = shopRepository
+				.getShopByFilters(dataInicio, dataFim, valorMinimo);
+		
+		return shops
+				.stream().map(ShopDTO::convertToDTO)
+				.collect(Collectors.toList());
+	}
+	
+	@Transactional(readOnly = true)
+	public ShopReportDTO getReportByDate(Date dataInicio, Date dataFim) {
+		
+		return shopRepository
+				.getReportByDate(dataInicio, dataFim);
 	}
 	
 }
