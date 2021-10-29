@@ -3,27 +3,21 @@ package com.ms.hscastro.dto;
 
 import java.util.Date;
 import java.util.List;
-
-import javax.validation.constraints.NotBlank;
+import com.ms.hscastro.entities.Item;
 import com.ms.hscastro.entities.Shop;
 
 
 public class ShopDTO {
 
-	@NotBlank
 	private Long id;
 	
-	@NotBlank
 	private float total;
 	
-	@NotBlank
 	private String userIdentifier;	
 	
-	@NotBlank
 	private Date data;
 	
-	@NotBlank
-	private List<ItemDTO> items;
+	private List<Item> items;
 	
 	public ShopDTO() {
 		// TODO Auto-generated constructor stub
@@ -61,11 +55,11 @@ public class ShopDTO {
 		this.data = data;
 	}
 
-	public List<ItemDTO> getItems() {
+	public List<Item> getItems() {
 		return items;
 	}
 
-	public void setItems(List<ItemDTO> items) {
+	public void setItems(List<Item> items) {
 		this.items = items;
 	}
 
