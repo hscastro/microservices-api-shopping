@@ -1,10 +1,10 @@
-package com.ms.hscastro;
+package com.example.apigateway;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ApiGatewayZuulApplicationTests {
+class ApiGatewayApplicationTests {
 
 	@Test
 	void contextLoads() {
