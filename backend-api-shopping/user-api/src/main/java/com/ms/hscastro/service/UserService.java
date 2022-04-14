@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ms.hscastro.dto.UserDTO;
 import com.ms.hscastro.entities.User;
+import com.ms.hscastro.exceptions.UserNotFoundException;
 import com.ms.hscastro.repositories.UserRepository;
 
 @Service @Transactional(readOnly = false)
@@ -40,7 +41,7 @@ public class UserService {
 		if(user.isPresent()) {
 			return UserDTO.convertToDTO(user.get());
 		}		
-		return null;
+		throw new UserNotFoundException();
 	}
 	
 	@Transactional(readOnly = true)
