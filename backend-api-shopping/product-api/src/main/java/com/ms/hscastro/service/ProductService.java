@@ -10,6 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ms.hscastro.dto.ProductDTO;
 import com.ms.hscastro.entities.Product;
+import com.ms.hscastro.exceptions.CategoryNotFoundException;
+import com.ms.hscastro.exceptions.ProductNotFoundException;
+import com.ms.hscastro.repositories.CategoryRepository;
 import com.ms.hscastro.repositories.ProductRepository;
 
 @Service @Transactional(readOnly = false)
@@ -18,8 +21,16 @@ public class ProductService {
 	@Autowired
 	private ProductRepository productRepository;
 	
+	@Autowired
+	private CategoryRepository categoryRepository;
+	
 	
 	public ProductDTO saveProduct(ProductDTO productDTO) {
+		boolean existsCategory = categoryRepository
+				.existsById(productDTO.getCategoryDTO().getId());
+		if(!existsCategory) {
+		   throw new CategoryNotFoundException();
+		}
 		ProductDTO newProductDTO = ProductDTO.convertToDTO(
 				productRepository.save(Product.convertToProduct(productDTO)));
 		return newProductDTO;
@@ -49,7 +60,7 @@ public class ProductService {
 		if(product.isPresent()) {
 			return ProductDTO.convertToDTO(product.get());
 		}		
-		return null;
+		throw new ProductNotFoundException();
 	}
 	
 	@Transactional(readOnly = true)
@@ -58,15 +69,16 @@ public class ProductService {
 		if(product != null) {
 			return ProductDTO.convertToDTO(product);
 		}		
-		return null;		
+		throw new ProductNotFoundException();		
 	}
 	
-	public void deleteProduct(Long idProduct) {
+	public ProductDTO deleteProduct(Long idProduct) {
 		Optional<Product> product = productRepository.findById(idProduct);
 		
 		if(product.isPresent()) {
 			productRepository.delete(product.get());
 		}
+		throw new ProductNotFoundException();
 	}
 	
 	public ProductDTO deleteProductById(Long id) {
@@ -75,7 +87,7 @@ public class ProductService {
 			productRepository.delete(product.get());
 			return ProductDTO.convertToDTO(product.get());
 		}		
-		return null;
+		throw new ProductNotFoundException();
 	}
 
 }
