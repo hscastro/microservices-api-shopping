@@ -1,5 +1,7 @@
 package com.ms.hscastro.resource;
 
+
+
 import java.util.Date;
 
 import org.springframework.http.HttpStatus;
@@ -9,15 +11,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.ms.hscastro.dto.ErrorDTO;
-import com.ms.hscastro.exceptions.UserNotFoundException;
+import com.ms.hscastro.exceptions.ProductNotFoundException;
+
 
 @ControllerAdvice
-public class UserControllerAdvice {
+public class ProductControllerAdvice {
 
 	@ResponseBody
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	@ExceptionHandler(UserNotFoundException.class)
-	public ErrorDTO handleUserNotFound(UserNotFoundException userNotFoundException) {
+	@ExceptionHandler(ProductNotFoundException.class)
+	public ErrorDTO handleUserNotFound(ProductControllerAdvice productControllerAdvice) {
 		ErrorDTO errorDTO = new ErrorDTO();
 		errorDTO.setStatus(HttpStatus.NOT_FOUND.value());
 		errorDTO.setMessage("Usuário não encontrado.");
